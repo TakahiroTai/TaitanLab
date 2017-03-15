@@ -55,37 +55,38 @@
         for (var i = 0; i < list.length; i++) {
             var infAry = list[i].split("\t");
             if (i === 0) {
+                //ヘッダー
                 table = table + "<thead>\n";
-
                 for (var m = 0; m < infAry.length; m++) {
                     table = table + "<th>" + escapeHTML(infAry[m]) + "</th>\n";
                 }
                 table.slice(0, -2);
                 table = table + "</thead>\n" +
-                "<tbody>\n";
+                    "<tbody>\n";
             } else {
-                table = table + "<tr>";
+                //ボディ
+                table = table + "<tr>\n";
                 for (var m = 0; m < infAry.length; m++) {
-                    table = table + "<td>" + (function(data) {
+                    table = table + "<td>\n" + (function(data) {
                         if (!/\@\@\@/.test(data)) { return escapeHTML(data); }
                         return "<ul style=\"list-style:none;padding:0px;\">" + data.split("@@@").map(function(op) {
-                            return "<li>" + escapeHTML(op) + "</li>";
-                        }).join("") + "</ul>";
-                    })(infAry[m]) + "</td>";
+                            return "<li>" + escapeHTML(op) + "</li>\n";
+                        }).join("") + "</ul>\n";
+                    })(infAry[m]) + "</td>\n";
                 }
-                table = table + "</tr>";
+                table = table + "</tr>\n";
 
                 if (i === list.length - 1) {
                     table = table + "</tbody>\n" +
-                    "</table>";
+                    "</table>\n";
                 }
             }
         }
         return table;
     };
 
-    var createHTML = function(list) {
-        var filesAry = list.split("\n");
+    var createHTML = function(out_data) {
+        var filesAry = out_data.split("\n");
         var jsTable = createJsListTable(filesAry);  //出力する中身を作成
         return "<html>\n" +
             "<head>\n" +
