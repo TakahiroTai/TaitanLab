@@ -68,7 +68,7 @@
                 for (var m = 0; m < infAry.length; m++) {
                     table = table + "<td>" + (function(data) {
                         if (!/\@\@\@/.test(data)) { return escapeHTML(data); }
-                        return "<ul>" + data.split("@@@").map(function(op) {
+                        return "<ul style=\"list-style:none;\">" + data.split("@@@").map(function(op) {
                             return "<li>" + escapeHTML(op) + "</li>";
                         }).join("") + "</ul>";
                     })(infAry[m]) + "</td>";
