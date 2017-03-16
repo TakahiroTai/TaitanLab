@@ -51,37 +51,33 @@
 
     var createJsListTable = function(list) {
         var table ="<table class=\"table table-bordered\">\n";
+        var headerAry = list[0].split("\t");
 
-        for (var i = 0; i < list.length; i++) {
-            var infAry = list[i].split("\t");
-            if (i === 0) {
-                //ヘッダー
-                table = table + "<thead>\n";
-                for (var m = 0; m < infAry.length; m++) {
-                    table = table + "<th>" + escapeHTML(infAry[m]) + "</th>\n";
-                }
-                table.slice(0, -2);
-                table = table + "</thead>\n" +
-                    "<tbody>\n";
-            } else {
-                //ボディ
-                table = table + "<tr>\n";
-                for (var m = 0; m < infAry.length; m++) {
-                    table = table + "<td>\n" + (function(data) {
-                        if (!/\@\@\@/.test(data)) { return escapeHTML(data); }
-                        return "<ul style=\"list-style:none;padding:0px;\">" + data.split("@@@").map(function(op) {
-                            return "<li>" + escapeHTML(op) + "</li>\n";
-                        }).join("") + "</ul>\n";
-                    })(infAry[m]) + "</td>\n";
-                }
-                table = table + "</tr>\n";
-
-                if (i === list.length - 1) {
-                    table = table + "</tbody>\n" +
-                    "</table>\n";
-                }
-            }
+        //ヘッダー処理
+        table = table + "<thead>\n";
+        for (var m = 0; m < headerAry.length; m++) {
+            table = table + "<th>" + escapeHTML(headerAry[m]) + "</th>\n";
         }
+        table = table + "</thead>\n";
+
+        //ボディ処理
+        table = table + "<tbody>\n";
+        for (var i = 1; i < list.length; i++) {
+            var bodyAry = list[i].split("\t");
+            table = table + "<tr>\n";
+            for (var m = 0; m < bodyAry.length; m++) {
+                table = table + "<td>\n" + (function(data) {
+                    if (!/\@\@\@/.test(data)) { return escapeHTML(data); }
+                    return "<ul style=\"list-style:none;padding:0px;\">" + data.split("@@@").map(function(op) {
+                        return "<li>" + escapeHTML(op) + "</li>\n";
+                    }).join("") + "</ul>\n";
+                })(bodyAry[m]) + "</td>\n";
+            }
+            table = table + "</tr>\n";
+        }
+        table = table + "</tbody>\n" +
+        "</table>\n";
+
         return table;
     };
 
