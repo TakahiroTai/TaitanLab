@@ -66,7 +66,7 @@
             var bodyAry = list[i].split("\t");
             table = table + "<tr class=\"row\">\n";
             for (var m = 0; m < bodyAry.length; m++) {
-                table = table + "<td class=\"cell\">\n" + (function(data) {
+                table = table + "<td class=\"body-cell cell\">\n" + (function(data) {
                     if (!/\@\@\@/.test(data)) { return escapeHTML(data); }
                     return "<ul style=\"list-style:none;padding:0px;\">" + data.split("@@@").map(function(op) {
                         return "<li>" + escapeHTML(op) + "</li>\n";
