@@ -50,13 +50,13 @@
     };
 
     var createJsListTable = function(list) {
-        var table ="<table class=\"table table-bordered\">\n";
+        var table ="<table id=\"table\">\n";
         var headerAry = list[0].split("\t");
 
         //ヘッダー処理
-        table = table + "<thead>\n";
+        table = table + "<thead class=\"header-row row\">\n";
         for (var m = 0; m < headerAry.length; m++) {
-            table = table + "<th>" + escapeHTML(headerAry[m]) + "</th>\n";
+            table = table + "<th class=\"cell\">" + escapeHTML(headerAry[m]) + "</th>\n";
         }
         table = table + "</thead>\n";
 
@@ -64,9 +64,9 @@
         table = table + "<tbody>\n";
         for (var i = 1; i < list.length; i++) {
             var bodyAry = list[i].split("\t");
-            table = table + "<tr>\n";
+            table = table + "<tr class=\"row\">\n";
             for (var m = 0; m < bodyAry.length; m++) {
-                table = table + "<td>\n" + (function(data) {
+                table = table + "<td class=\"cell\">\n" + (function(data) {
                     if (!/\@\@\@/.test(data)) { return escapeHTML(data); }
                     return "<ul style=\"list-style:none;padding:0px;\">" + data.split("@@@").map(function(op) {
                         return "<li>" + escapeHTML(op) + "</li>\n";
@@ -87,14 +87,14 @@
         return "<html>\n" +
             "<head>\n" +
             "<link\n" +
-                "href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\"\n" +
+                "href=\"https://rawgit.com/TakahiroTai/TaitanLab/master/TaitanLab/2017/from_output.css\"\n" +
                 "rel=\"stylesheet\"\n" +
                 "integrity=" +
                     "\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\"\n" +
                 "crossorigin=\"anonymous\">\n" +
             "</head>\n" +
             "<body>\n" +
-                "<h1>" + "設計情報" + "</h1>\n" +
+                "<div class=\"caption\">" + "設計情報" + "</div>\n" +
                     jsTable +
             "</body>\n" +
         "</html>";
