@@ -94,7 +94,7 @@
                 "crossorigin=\"anonymous\">\n" +
             "</head>\n" +
             "<body>\n" +
-                "<div class=\"caption\">" + "設計情報" + "</div>\n" +
+                "<div class=\"caption\"><h1>" + "設計情報" + "</h1></div>\n" +
                     jsTable +
             "</body>\n" +
         "</html>";
