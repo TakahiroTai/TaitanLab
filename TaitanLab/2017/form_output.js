@@ -54,11 +54,11 @@
         var headerAry = list[0].split("\t");
 
         //ヘッダー処理
-        table = table + "<thead class=\"header-row row\">\n";
+        table = table + "<thead><tr class=\"header-row row\">\n";
         for (var m = 0; m < headerAry.length; m++) {
             table = table + "<th class=\"cell\">" + escapeHTML(headerAry[m]) + "</th>\n";
         }
-        table = table + "</thead>\n";
+        table = table + "</tr></thead>\n";
 
         //ボディ処理
         table = table + "<tbody>\n";
