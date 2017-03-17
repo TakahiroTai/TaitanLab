@@ -2,7 +2,7 @@
     'use strict';
 
     var F_APPID = 'アプリID';
-    var F_RESULT = '出力結果';
+    var F_RESULT = '出力結果';  //フィールド出力()
 
     var PART_STR = '\t'; //仕切り文字
     var RETURN_STR = '\r\n'; //改行文字
