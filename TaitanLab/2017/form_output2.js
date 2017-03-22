@@ -412,7 +412,8 @@
         createButton(space);
     }
 
-    kintone.events.on(['app.record.create.show', 'app.record.edit.show'], showButton);
+    kintone.events.on(['app.record.detail.show'], showButton);
+    // kintone.events.on(['app.record.create.show', 'app.record.edit.show'], showButton);
     kintone.events.on(['app.record.index.show'], showButton2);
 })();
 
