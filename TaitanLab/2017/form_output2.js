@@ -358,15 +358,13 @@
     }
 
     function getFormLayoutMap() {
-        function getFormLayoutData(record) {
+        function getFormLayoutData() {
             var body = {
-                "app": record[F_APPID].value
+                "app": kintone.app.getId()
             };
             return kintone.api(kintone.api.url("/k/v1/app/form/layout", true), "GET", body);
         }
-        var event = kintone.app.record.get();
-        var record = event.record;
-        return getFormLayoutData(record).then(function(resp) {
+        return getFormLayoutData().then(function(resp) {
             return getLayoutOrder(resp);
         });
     }
