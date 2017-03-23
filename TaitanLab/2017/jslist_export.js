@@ -24,50 +24,38 @@
         });
     };
 
-    var createTable = function(js_list) {
-        var table =
-            "<table class=\"table table-bordered\">\n" +
-                "<thead>\n" +
-                    "<th>アプリ名</th>" +
-                    "<th>ファイル種別</th>" +
-                    "<th>区分</th>" +
-                    "<th>ファイル名</th>\n" +
-                "</thead>\n" +
-                "<tbody>\n";
-        //listの始めはスペース情報のため、2番目から開始
-        for (var i = 1; i < js_list.length; i++) {
-            var fileInf = js_list[i];
-            var infAry = fileInf.split("\t");
+    var createTable = function(list) {
+        var table = "<table class=\"table table-bordered\">\n";
+        var headerAry = list[0].split(PART_STR);
 
-            if (infAry.length === 2) {
-                //アプリ情報の設定
-                table = table + "<tr><td colspan=\"4\">" + escapeHTML(infAry[1]) + "</td></tr>";
-
-            } else if (infAry.length >= 3) {
-                //ファイル情報の設定
-                var filetype = infAry[2] || "-";
-                var category = infAry[3] || "-";
-                var filepath = infAry[4] || "-";
-                table = table + "<tr>" +
-                    "<td></td>" +
-                    "<td>" + filetype + "</td>" +
-                    "<td>" + category + "</td>" +
-                    "<td>" + filepath + "</td>" +
-                "</tr>";
-            }
+        //ヘッダー処理
+        table = table + "<thead><tr class=\"header-row row\">\n";
+        for (var m = 0; m < headerAry.length; m++) {
+            table = table + "<th class=\"cell\">" + escapeHTML(headerAry[m]) + "</th>\n";
         }
+        table = table + "</tr></thead>\n";
 
-        table = table +
-            "</tbody>\n" +
-        "</table>";
+        //ボディ処理
+        table = table + "<tbody>\n";
+        for (var i = 1; i < list.length; i++) {
+            var fileInf = list[i];
+            var bodyAry = fileInf.split(PART_STR);
+
+            for (var m = 0; m < bodyAry.length; m++) {
+                table = table + "<td class=\"body-cell cell\">\n" + escapeHTML(bodyAry[m]) + "</td>\n";
+            }
+            table = table + "</tr>\n";
+        }
+        table = table + "</tbody>\n" +
+        "</table>\n";
 
         return table;
     };
 
     var createHTML = function(csv) {
-        var csvStr = csv.split(RETURN_STR);
+        var fileAry = csv.split(RETURN_STR);
         var title = "JS/CSSリスト(ID:" + APP_ID + ")";
-        var table = createTable(csvStr);  //出力する中身を作成
+        var table = createTable(fileAry);  //出力する中身を作成
         return "<html>\n" +
             "<head>\n" +
             "<link\n" +
@@ -78,7 +66,7 @@
                 "crossorigin=\"anonymous\">\n" +
             "</head>\n" +
             "<body>\n" +
-                "<h1>" + title + "</h1>\n" +
+                "<div class=\"caption\">" + title + "</div>\n" +
                     table +
             "</body>\n" +
         "</html>";
@@ -103,7 +91,7 @@
     }
 
     function json2Csv(cstm_data) {
-        var csv = ["ファイル種別", "区分", "ファイル名"].join(PART_STR);
+        var csv = ["ファイル種別" + PART_STR + "区分" + PART_STR + "ファイル名"];
 
         var desktop = cstm_data.desktop;
         var d_js = desktop.js;
@@ -145,8 +133,7 @@
             return json2Csv(cstm_data);
         }).then(function(array) {
             var csv = array.join(RETURN_STR);
-            console.log(csv);
-            // exportHTML(csv);
+            exportHTML(csv);
         }).catch(function(e) {
             alert(e.message);
             console.log(e);
