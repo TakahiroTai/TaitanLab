@@ -41,8 +41,9 @@
             var fileInf = list[i];
             var bodyAry = fileInf.split(PART_STR);
 
+            table = table + "<tr class=\"row\">\n";
             for (var m = 0; m < bodyAry.length; m++) {
-                table = table + "<td class=\"body-cell cell\">\n" + escapeHTML(bodyAry[m]) + "</td>\n";
+                table = table + "<td class=\"body-cell cell\">" + escapeHTML(bodyAry[m]) + "</td>\n";
             }
             table = table + "</tr>\n";
         }
@@ -59,10 +60,10 @@
         return "<html>\n" +
             "<head>\n" +
             "<link\n" +
-                "href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\"\n" +
+                "href=\"https://rawgit.com/TakahiroTai/TaitanLab/master/TaitanLab/2017/form_output.css\"\n" +
                 "rel=\"stylesheet\"\n" +
-                "integrity=" +
-                    "\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\"\n" +
+                // "integrity=" +
+                //     "\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\"\n" +
                 "crossorigin=\"anonymous\">\n" +
             "</head>\n" +
             "<body>\n" +
