@@ -25,7 +25,7 @@
     };
 
     var createTable = function(list) {
-        var table = "<table class=\"table table-bordered\">\n";
+        var table ="<table id=\"table\">\n";
         var headerAry = list[0].split(PART_STR);
 
         //ヘッダー処理
