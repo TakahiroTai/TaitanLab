@@ -87,7 +87,7 @@
         return "<html>\n" +
             "<head>\n" +
             "<link\n" +
-                "href=\"https://rawgit.com/TakahiroTai/TaitanLab/master/TaitanLab/2017/from_output.css\"\n" +
+                "href=\"https://rawgit.com/TakahiroTai/TaitanLab/master/TaitanLab/2017/form_output.css\"\n" +
                 "rel=\"stylesheet\"\n" +
                 // "integrity=" +
                 //     "\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\"\n" +
@@ -106,7 +106,7 @@
      */
     function exportHTML(exp_val) {
         var html = createHTML(exp_val);
-        var htmlFile = new File([html], "JS-CSSリスト.html", {type: "text/html"});
+        var htmlFile = new File([html], "設計情報.html", {type: "text/html"});
         var url = URL.createObjectURL(htmlFile);
         window.open(url);
     }

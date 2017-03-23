@@ -87,7 +87,7 @@
         return "<html>\n" +
             "<head>\n" +
             "<link\n" +
-                "href=\"https://rawgit.com/TakahiroTai/TaitanLab/master/TaitanLab/2017/from_output.css\"\n" +
+                "href=\"https://rawgit.com/TakahiroTai/TaitanLab/master/TaitanLab/2017/form_output.css\"\n" +
                 "rel=\"stylesheet\"\n" +
                 // "integrity=" +
                 //     "\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\"\n" +
