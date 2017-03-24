@@ -5,79 +5,89 @@
     var RETURN_STR = '\r\n'; //改行文字
     var APP_ID = kintone.app.getId();
 
-    var escapeList = {
-        "&": "&amp;",
-        "'": "&#x27;",
-        "`": "&#x60;",
-        "\"": "&quot;",
-        "<": "&lt;",
-        ">": "&gt;"
-    };
-
     /**
-     * エスケープ処理
-     *
-     */
-    var escapeHTML = function(src) {
-        return src.replace(/[&"'`\\<>]/g, function(match) {
-            return escapeList[match];
-        });
-    };
-
-    var createTable = function(list) {
-        var table ="<table id=\"table\">\n";
-        var headerAry = list[0].split(PART_STR);
-
-        //ヘッダー処理
-        table = table + "<thead><tr class=\"header-row row\">\n";
-        for (var m = 0; m < headerAry.length; m++) {
-            table = table + "<th class=\"cell\">" + escapeHTML(headerAry[m]) + "</th>\n";
-        }
-        table = table + "</tr></thead>\n";
-
-        //ボディ処理
-        table = table + "<tbody>\n";
-        for (var i = 1; i < list.length; i++) {
-            var fileInf = list[i];
-            var bodyAry = fileInf.split(PART_STR);
-
-            table = table + "<tr class=\"row\">\n";
-            for (var m = 0; m < bodyAry.length; m++) {
-                table = table + "<td class=\"body-cell cell\">" + escapeHTML(bodyAry[m]) + "</td>\n";
-            }
-            table = table + "</tr>\n";
-        }
-        table = table + "</tbody>\n" +
-        "</table>\n";
-
-        return table;
-    };
-
-    var createHTML = function(csv) {
-        var fileAry = csv.split(RETURN_STR);
-        var title = "JS/CSSリスト(ID:" + APP_ID + ")";
-        var table = createTable(fileAry);  //出力する中身を作成
-        return "<html>\n" +
-            "<head>\n" +
-            "<link\n" +
-                "href=\"https://rawgit.com/TakahiroTai/TaitanLab/master/TaitanLab/2017/form_output.css\"\n" +
-                "rel=\"stylesheet\"\n" +
-                // "integrity=" +
-                //     "\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\"\n" +
-                "crossorigin=\"anonymous\">\n" +
-            "</head>\n" +
-            "<body>\n" +
-                "<div class=\"caption\">" + title + "</div>\n" +
-                    table +
-            "</body>\n" +
-        "</html>";
-    };
-
-    /**
-     * HTML生成
+     * HTML出力
      *
      */
     function exportHTML(csv) {
+        var escapeList = {
+            "&": "&amp;",
+            "'": "&#x27;",
+            "`": "&#x60;",
+            "\"": "&quot;",
+            "<": "&lt;",
+            ">": "&gt;"
+        };
+
+        /**
+         * エスケープ処理
+         * @param {string} src  処理対象文字列
+         * @return              エスケープ後文字列
+         */
+        var escapeHTML = function(src) {
+            return src.replace(/[&"'`\\<>]/g, function(match) {
+                return escapeList[match];
+            });
+        };
+
+        /**
+         * HTMLテーブル作成
+         * @param {array} list  テーブル構成要素
+         * @return              テーブル情報(HTML)
+         */
+        var createTable = function(list) {
+            var table ="<table id=\"table\">\n";
+            var headerAry = list[0].split(PART_STR);
+
+            //ヘッダー処理
+            table = table + "<thead><tr class=\"header-row row\">\n";
+            for (var m = 0; m < headerAry.length; m++) {
+                table = table + "<th class=\"cell\">" + escapeHTML(headerAry[m]) + "</th>\n";
+            }
+            table = table + "</tr></thead>\n";
+
+            //ボディ処理
+            table = table + "<tbody>\n";
+            for (var i = 1; i < list.length; i++) {
+                var fileInf = list[i];
+                var bodyAry = fileInf.split(PART_STR);
+    
+                table = table + "<tr class=\"row\">\n";
+                for (var m = 0; m < bodyAry.length; m++) {
+                    table = table + "<td class=\"body-cell cell\">" + escapeHTML(bodyAry[m]) + "</td>\n";
+                }
+                table = table + "</tr>\n";
+            }
+            table = table + "</tbody>\n" +
+            "</table>\n";
+
+            return table;
+        };
+
+        /**
+         * HTML情報作成
+         * @param {string} csv 出力情報
+         */
+        var createHTML = function(csv) {
+            var fileAry = csv.split(RETURN_STR);
+            var title = "JS/CSSリスト(ID:" + APP_ID + ")";
+            var table = createTable(fileAry);  //出力する中身を作成
+            return "<html>\n" +
+                "<head>\n" +
+                "<link\n" +
+                    "href=\"https://rawgit.com/TakahiroTai/TaitanLab/master/TaitanLab/2017/form_output.css\"\n" +
+                    "rel=\"stylesheet\"\n" +
+                    // "integrity=" +
+                    //     "\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\"\n" +
+                    "crossorigin=\"anonymous\">\n" +
+                "</head>\n" +
+                "<body>\n" +
+                    "<div class=\"caption\">" + title + "</div>\n" +
+                        table +
+                "</body>\n" +
+            "</html>";
+        };
+
         var html = createHTML(csv);
         var htmlFile = new File([html], "JS-CSSリスト.html", {type: "text/html"});
         var url = URL.createObjectURL(htmlFile);
@@ -110,7 +120,7 @@
             csv = csv.concat(getFileData1(jsObj, "JS"));
         }
 
-        //csssリスト作成
+        //cssリスト作成
         for (var n = 0; n < d_css.length; n++) {
             var cssObj = d_css[n];
             csv = csv.concat(getFileData1(cssObj, "CSS"));
@@ -118,6 +128,10 @@
         return csv;
     }
 
+    /**
+     * JavaScript/CSSカスタマイズの設定取得
+     * @return  リクエストのレスポンスデータ
+     */
     function getCustomizeData() {
         var body = {
             "app": APP_ID
@@ -126,10 +140,10 @@
     }
 
     /**
-     * JSリスト出力処理(取得準備)
+     * JS-CSSリスト出力処理
      *
      */
-    function exportJSList(sp_id) {
+    function exportJSList() {
         getCustomizeData().then(function(cstm_data) {
             return json2Csv(cstm_data);
         }).then(function(array) {
@@ -141,6 +155,10 @@
         });
     }
 
+    /**
+     * ボタン生成
+     * ボタンの生成および押下時の処理呼び出し
+     */
     function createButton(space) {
         if (!document.getElementById('output_js_button')) {
             var button = document.createElement('button');
