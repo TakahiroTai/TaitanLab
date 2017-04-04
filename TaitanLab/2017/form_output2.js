@@ -86,6 +86,7 @@
         var jsTable = createJsListTable(filesAry);  //出力する中身を作成
         return "<html>\n" +
             "<head>\n" +
+            "<meta charset=\"utf-8\">\n" +
             "<link\n" +
                 "href=\"https://rawgit.com/TakahiroTai/TaitanLab/master/TaitanLab/2017/form_output.css\"\n" +
                 "rel=\"stylesheet\"\n" +
@@ -416,5 +417,3 @@
     // kintone.events.on(['app.record.create.show', 'app.record.edit.show'], showButton);
     kintone.events.on(['app.record.index.show'], showButton2);
 })();
-
-
