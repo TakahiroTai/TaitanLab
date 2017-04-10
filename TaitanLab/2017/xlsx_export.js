@@ -53,7 +53,7 @@ function ReportCtrl($scope) {
         }
 
         var data = [];
-        data.push(data);
+        console.log(data);
         $('.report tr').each(function (i, tr) {
             var row = [];
             console.log(tr);
