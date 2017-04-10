@@ -54,6 +54,7 @@ function ReportCtrl($scope) {
 
         var data = [];
         console.log(data);
+        try {
         $('.report tr').each(function (i, tr) {
             var row = [];
             console.log(tr);
@@ -66,6 +67,10 @@ function ReportCtrl($scope) {
             });
             data.push(row);
         });
+        } catch(e) {
+            console.log(e);
+            return false;
+        }
         console.log(data);
 
         function Workbook() {
