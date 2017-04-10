@@ -53,8 +53,10 @@ function ReportCtrl($scope) {
         }
 
         var data = [];
+        data.push(data);
         $('.report tr').each(function (i, tr) {
-        var row = [];
+            var row = [];
+            console.log(tr);
             $(tr).find('th,td').each(function (j, td) {
                 var o = ''+td.innerHTML;
                 if ($(td).hasClass("report-num")) {
