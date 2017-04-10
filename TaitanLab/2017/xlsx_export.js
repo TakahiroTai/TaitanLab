@@ -76,8 +76,8 @@ function ReportCtrl($scope) {
         var ws = sheet_from_array_of_arrays(data);
 
         var workbook = new Workbook();
-        workbook.SheetNames.push("売上");
-        workbook.Sheets["売上"] = ws;
+        workbook.SheetNames.push("files");
+        workbook.Sheets["files"] = ws;
 
         var wbout = XLSX.write(workbook, {
             bookType:'xlsx',
@@ -92,7 +92,7 @@ function ReportCtrl($scope) {
             return buf;
         }
 
-        saveAs(new Blob([s2ab(wbout)],{type:""}), "report.xlsx");
+        saveAs(new Blob([s2ab(wbout)],{type:""}), "custom_list.xlsx");
     }
 
     $scope.downloadCSV = function () {
