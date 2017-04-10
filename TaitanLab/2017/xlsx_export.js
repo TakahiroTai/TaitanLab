@@ -65,7 +65,7 @@ function ReportCtrl($scope) {
                     $(td).find("li").each(function (m, op) {
                         o = o + $(op).text() + "\r\n";
                     });
-                    o = o.slice(0, -4);
+                    o = o.slice(0, -2);
                 }
                 row.push(o);
             });
