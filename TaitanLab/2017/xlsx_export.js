@@ -1,21 +1,6 @@
 "use strict";
 
-var data = [
-    {date:'2014-06-11', num:2300},
-    {date:'2014-06-10', num:11300},
-    {date:'2014-06-09', num:300},
-    {date:'2014-06-08', num:3400},
-    {date:'2014-06-07', num:4300},
-    {date:'2014-06-06', num:8300},
-    {date:'2014-06-05', num:3300},
-    {date:'2014-06-04', num:331300},
-    {date:'2014-06-03', num:300},
-    {date:'2014-06-02', num:3700},
-    {date:'2014-06-01', num:8300}
-];
-
 function ReportCtrl($scope) {
-    $scope.data = data;
 
     function downloadCSV(file_nm, sheet_nm) {
         function datenum(v, date1904) {
@@ -102,14 +87,9 @@ function ReportCtrl($scope) {
         saveAs(new Blob([s2ab(wbout)],{type:""}), file_nm + ".xlsx");
     }
 
-    $scope.downloadCSV = function () {
-        downloadCSV();
-    };
-
-    $scope.uriage = function (row) {
-        return row.num * 1000;
-    };
-    $scope.tax = function (uriage) {
-        return uriage * 0.08;
+    $scope.downloadCSV = function (file_nm, sheet_nm) {
+        var fn = file_nm || "";
+        var sn = sheet_nm || "";
+        downloadCSV(fn, sn);
     };
 }
