@@ -17,7 +17,7 @@ var data = [
 function ReportCtrl($scope) {
     $scope.data = data;
 
-    function downloadCSV() {
+    function downloadCSV(file_nm, sheet_nm) {
         function datenum(v, date1904) {
             if(date1904) v+=1462;
             var epoch = Date.parse(v);
@@ -83,8 +83,8 @@ function ReportCtrl($scope) {
         var ws = sheet_from_array_of_arrays(data);
 
         var workbook = new Workbook();
-        workbook.SheetNames.push("files");
-        workbook.Sheets["files"] = ws;
+        workbook.SheetNames.push(sheet_nm);
+        workbook.Sheets[sheet_nm] = ws;
 
         var wbout = XLSX.write(workbook, {
             bookType:'xlsx',
@@ -99,7 +99,7 @@ function ReportCtrl($scope) {
             return buf;
         }
 
-        saveAs(new Blob([s2ab(wbout)],{type:""}), "custom_list.xlsx");
+        saveAs(new Blob([s2ab(wbout)],{type:""}), file_nm + ".xlsx");
     }
 
     $scope.downloadCSV = function () {
