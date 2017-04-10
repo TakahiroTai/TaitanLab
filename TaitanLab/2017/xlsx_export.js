@@ -60,6 +60,12 @@ function ReportCtrl($scope) {
                 if ($(td).hasClass("report-num")) {
                     o = parseInt(o, 10);
                 }
+                if ($(td).hasClass("report-list-item")) {
+                    o = "";
+                    $(td).find("li").each(function (m, op) {
+                        o = o + op + "CHAR(10)";
+                    });
+                }
                 row.push(o);
             });
             data.push(row);
